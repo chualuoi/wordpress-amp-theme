@@ -18,60 +18,46 @@
 if ( post_password_required() ) {
 	return;
 }
+$wordpress_amp_theme_comment_count = get_comments_number();
 ?>
-
-<div id="comments" class="comments-area">
-
+<section class="recipe-comments">
 	<?php
-	// You can start editing here -- including this comment!
-	if ( have_comments() ) :
+		// You can start editing here -- including this comment!
+		if ( have_comments() ) :
 		?>
-		<h2 class="comments-title">
-			<?php
-			$wordpress_amp_theme_comment_count = get_comments_number();
-			if ( '1' === $wordpress_amp_theme_comment_count ) {
-				printf(
-					/* translators: 1: title. */
-					esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'wordpress-amp-theme' ),
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			} else {
-				printf( 
-					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $wordpress_amp_theme_comment_count, 'comments title', 'wordpress-amp-theme' ) ),
-					number_format_i18n( $wordpress_amp_theme_comment_count ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
-				);
-			}
-			?>
-		</h2><!-- .comments-title -->
-
-		<?php the_comments_navigation(); ?>
-
-		<ol class="comment-list">
-			<?php
+		  <h2 class="mb3"><?php echo esc_html( wp_sprintf( __("%d Responses"), $wordpress_amp_theme_comment_count ) )  ?></h2>
+		  <?php the_comments_navigation(); ?>
+		  <ul class="list-reset">
+		  	<?php
 			wp_list_comments(
 				array(
-					'style'      => 'ol',
+					'style'      => 'li',
 					'short_ping' => true,
 				)
 			);
 			?>
-		</ol><!-- .comment-list -->
+            <li class="mb4">
+              <h3 class="ampstart-subtitle">Sriram</h3>
+              <span class="h5 block mb3">02.24.17 at 6:01 pm</span>
+              <p>This is perfect for a summer patio party. Thanks for another great one!</p>
+            </li>
+            <li class="mb4">
+              <h3 class="ampstart-subtitle">Eric</h3>
+              <span class="h5 block mb3">02.24.17 at 5:14 am</span>
+              <p>These were so good I woke up dreaming about them. Regards, Eric.</p>
+            </li>
+		  </ul>
+		  <?php
+			the_comments_navigation();
 
-		<?php
-		the_comments_navigation();
+			// If comments are closed and there are comments, let's leave a little note, shall we?
+			if ( ! comments_open() ) :
+				?>
+				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'wordpress-amp-theme' ); ?></p>
+				<?php
+			endif;
+		endif; // Check for have_comments().
 
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() ) :
-			?>
-			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'wordpress-amp-theme' ); ?></p>
-			<?php
-		endif;
-
-	endif; // Check for have_comments().
-
-	comment_form();
-	?>
-
-</div><!-- #comments -->
+		comment_form();
+		?>
+</section>

@@ -11,22 +11,21 @@
 
 ?>
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'wordpress-amp-theme' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'wordpress-amp-theme' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'wordpress-amp-theme' ), 'wordpress-amp-theme', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
+<footer class="ampstart-footer flex flex-column items-center px3 ">
+
+
+<nav class="ampstart-footer-nav">
+  <ul class="list-reset flex flex-wrap mb3">
+	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">About</a></li>
+	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">Contact</a></li>
+	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">Terms</a></li>
+  </ul>
+</nav>
+<small>
+  © https://www.chualuoi.com, 2020
+</small>
+</footer>
+<!-- End Footer -->
 
 <?php wp_footer(); ?>
 
