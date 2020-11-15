@@ -42,8 +42,5 @@ html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-t
     <div role="button" aria-label="open sidebar" on="tap:header-sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger  pr2  ">☰
 	</div>
 	<?php get_template_part( 'template-parts/logo' ) ?>
-	<nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
-		<?php get_template_part( 'template-parts/categories' ) ?>
-	</nav>
   </header>
   <!-- End Navbar -->
