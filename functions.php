@@ -47,10 +47,15 @@ if ( ! function_exists( 'wordpress_amp_theme_setup' ) ) :
 		 */
 		add_theme_support( 'post-thumbnails' );
 
-		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus(
 			array(
-				'menu-1' => esc_html__( 'Primary', 'wordpress-amp-theme' ),
+				'sidebar-menu' => esc_html__( 'Sidebar', 'wordpress-amp-theme' ),
+			)
+		);
+
+		register_nav_menus(
+			array(
+				'footer-menu' => esc_html__( 'Footer', 'wordpress-amp-theme' ),
 			)
 		);
 
@@ -71,18 +76,6 @@ if ( ! function_exists( 'wordpress_amp_theme_setup' ) ) :
 			)
 		);
 
-		// Set up the WordPress core custom background feature.
-		add_theme_support(
-			'custom-background',
-			apply_filters(
-				'wordpress_amp_theme_custom_background_args',
-				array(
-					'default-color' => 'ffffff',
-					'default-image' => '',
-				)
-			)
-		);
-
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -100,6 +93,10 @@ if ( ! function_exists( 'wordpress_amp_theme_setup' ) ) :
 				'flex-height' => true,
 			)
 		);
+
+		if ( ! is_user_logged_in() ) {
+			remove_unused_wp_references();
+		}
 	}
 endif;
 add_action( 'after_setup_theme', 'wordpress_amp_theme_setup' );
@@ -178,3 +175,28 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Remove unused wp scripts/styles on front end to make sure it's AMP compatible.
+ *
+ * @return void
+ */
+function remove_unused_wp_references() {
+	add_action( 'wp_enqueue_scripts', function() {
+		wp_deregister_script( 'wp-embed' );
+	});
+
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+	remove_action( 'wp_head', 'rsd_link' );
+	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+	remove_action( 'wp_head', 'wp_generator' );
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'embed_head', 'print_emoji_detection_script' );
+	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+	remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+	remove_action( 'wp_head', 'rel_canonical' );
+	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+}

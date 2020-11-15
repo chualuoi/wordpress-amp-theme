@@ -8,24 +8,16 @@
  *
  * @package WordPress_AMP_Theme
  */
-
 ?>
 
 <footer class="ampstart-footer flex flex-column items-center px3 ">
-
-
-<nav class="ampstart-footer-nav">
-  <ul class="list-reset flex flex-wrap mb3">
-	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">About</a></li>
-	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">Contact</a></li>
-	<li class="px1"><a class="text-decoration-none ampstart-label" href="#">Terms</a></li>
-  </ul>
-</nav>
-<small>
-  © https://www.chualuoi.com, 2020
-</small>
+	<nav class="ampstart-footer-nav">
+		<?php get_template_part( 'template-parts/footer-menu' ); ?>
+	</nav>
+	<small>
+	© <a href="https://www.chualuoi.com">https://www.chualuoi.com</a>, 2020
+	</small>
 </footer>
-<!-- End Footer -->
 
 <?php wp_footer(); ?>
 

@@ -41,6 +41,7 @@ get_header();
 			get_template_part( 'template-parts/content', 'none' );
 
 		endif;
+		get_template_part( 'template-parts/social-share' );
 		?>
 
 	</main><!-- #main -->
