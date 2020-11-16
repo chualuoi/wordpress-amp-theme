@@ -134,13 +134,15 @@ function wordpress_amp_theme_customize_register( $wp_customize ) {
 	// control
 	$wp_customize->add_control( new Customize_MultiChecbox_Control (
 		$wp_customize, 'wp_amp_theme_social_share', array(
-			'label'    => __( 'Share on', 'author' ),
+			'label'    => __( 'Share on', 'wp_amp_theme' ),
 			'section'  => 'wp_amp_theme_social_share',
 			'settings' => 'wp_amp_theme_social_share',
 			'type'     => 'multi-checkbox',
 			'choices'  => $social_medias,
 		)
 	));
+
+	wp_amp_theme_customize_reading( $wp_customize );
 }
 add_action( 'customize_register', 'wordpress_amp_theme_customize_register' );
 
@@ -232,10 +234,75 @@ function wp_amp_theme_get_social_media_profiles() {
 function wp_amp_theme_sanitize_avatar_method( $input ) {
 
 	$valid = array(
-		'gravatar' => __( 'Gravatar', 'author' ),
-		'upload'   => __( 'Upload an image', 'author' ),
-		'none'     => __( 'Do not display avatar', 'author' )
+		'gravatar' => __( 'Gravatar', 'wp_amp_theme' ),
+		'upload'   => __( 'Upload an image', 'wp_amp_theme' ),
+		'none'     => __( 'Do not display avatar', 'wp_amp_theme' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
+}
+
+function wp_amp_theme_customize_reading( $wp_customize ) {
+	/***** Blog *****/
+
+	// section
+	$wp_customize->add_section( 'wp_amp_theme_reading', array(
+		'title'    => _x( 'Reading', 'noun: the blog section',  'wp_amp_theme' ),
+		'priority' => 45
+	) );
+	// setting
+	$wp_customize->add_setting( 'full_post', array(
+		'default'           => 'no',
+		'sanitize_callback' => 'wp_amp_theme_sanitize_radio'
+	) );
+	// control
+	$wp_customize->add_control( 'full_post', array(
+		'label'    => __( 'Show full posts on blog?', 'wp_amp_theme' ),
+		'section'  => 'wp_amp_theme_reading',
+		'settings' => 'full_post',
+		'type'     => 'radio',
+		'choices'  => array(
+			'yes' => __( 'Yes', 'wp_amp_theme' ),
+			'no'  => __( 'No', 'wp_amp_theme' )
+		)
+	) );
+
+	// setting
+	$wp_customize->add_setting( 'excerpt_length', array(
+		'default'           => '100',
+		'sanitize_callback' => 'absint'
+	) );
+	// control
+	$wp_customize->add_control( 'excerpt_length', array(
+		'label'    => __( 'Excerpt word count', 'wp_amp_theme' ),
+		'section'  => 'wp_amp_theme_reading',
+		'settings' => 'excerpt_length',
+		'type'     => 'number'
+	) );
+	// Read More text - setting
+	$wp_customize->add_setting( 'read_more_text', array(
+		'default'           => __( 'Continue reading', 'wp_amp_theme' ),
+		'sanitize_callback' => 'sanitize_text_field'
+	) );
+	// Read More text - control
+	$wp_customize->add_control( 'read_more_text', array(
+		'label'    => __( 'Read More link text', 'wp_amp_theme' ),
+		'section'  => 'wp_amp_theme_reading',
+		'settings' => 'read_more_text',
+		'type'     => 'text'
+	) );
+}
+
+
+function wp_amp_theme_sanitize_radio( $input, $setting ){
+
+	//input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
+	$input = sanitize_key($input);
+
+	//get the list of possible radio box options
+	$choices = $setting->manager->get_control( $setting->id )->choices;
+
+	//return input if valid or return default option
+	return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
+
 }

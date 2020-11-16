@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<main id="content" role="main" class="">
+	<main id="content" role="main" class="archive">
 
 		<?php if ( have_posts() ) : ?>
 
@@ -30,9 +30,9 @@ get_header();
 				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 				 */
 				?>
-				<div class="mb-2">
-					<?php get_template_part( 'template-parts/content', get_post_type() ); ?>
-				<div>
+				<div class="mb2">
+					<?php get_template_part( 'template-parts/content-archive', get_post_type() ); ?>
+				</div>
 				<?php
 			endwhile;
 
@@ -40,7 +40,7 @@ get_header();
 
 		else :
 
-			get_template_part( 'template-parts/content', 'none' );
+			get_template_part( 'template-parts/content-archive', 'none' );
 
 		endif;
 		get_template_part( 'template-parts/social-share' );

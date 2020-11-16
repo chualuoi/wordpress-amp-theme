@@ -35,3 +35,52 @@ function wordpress_amp_theme_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'wordpress_amp_theme_pingback_header' );
+
+/**
+ * Customize excerpt length.
+ *
+ * @param int $length Excerpt length.
+ * @return int Customized excerpt length.
+ */
+function wordpress_amp_theme_excerpt_length( $length ) {
+
+	$new_excerpt_length = get_theme_mod( 'excerpt_length' );
+
+	if ( ! empty( $new_excerpt_length ) && $new_excerpt_length != 100 ) {
+		return $new_excerpt_length;
+	}
+	if ( $new_excerpt_length === 0 ) {
+		return 0;
+	}
+	return 100;
+}
+add_filter( 'excerpt_length', 'wordpress_amp_theme_excerpt_length', 99 );
+
+
+function wordpress_amp_theme_the_excerpt() {
+	global $post;
+	$show_full_post = get_theme_mod( 'full_post' );
+	$ismore         = strpos( $post->post_content, '<!--more-->' );
+
+	if ( $show_full_post === 'yes' ) {
+		global $more;
+		$more = 0;
+		the_content(
+			sprintf(
+				wp_kses(
+					/* translators: %s: Name of current post. Only visible to screen readers */
+					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'wordpress-amp-theme' ),
+					array(
+						'span' => array(
+							'class' => array(),
+						),
+					)
+				),
+				wp_kses_post( get_the_title() )
+			)
+		);
+		return;
+	}
+	the_excerpt();
+
+}

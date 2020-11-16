@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying posts
+ * Template part for displaying post archive
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -9,17 +9,10 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'recipe-article' ); ?>>
-	<?php if ( is_singular() ) : ?>
-		<span class="ampstart-subtitle block pt2 mb2 caps"><?php wordpress_amp_theme_entry_footer(); ?></span>
-	<?php endif; ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'recipe-article mb3 pb3' ); ?>>
 	<header class="entry-header">
 		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="mb1">', '</h1>' );
-		else :
 			the_title( '<h2 class="mb1"><a class="text-decoration-none" href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
 
 		if ( 'post' === get_post_type() ) :
 			?>
@@ -29,11 +22,6 @@
 				wordpress_amp_theme_posted_by();
 				?>
 			</address>
-			<?php if ( is_singular() ) : ?>
-				<div class="right">
-					<?php get_template_part( 'template-parts/social-share' ); ?>
-				</div>
-			<?php endif; ?>
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
@@ -41,21 +29,7 @@
 
 	<div class="entry-content">
 		<?php
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'wordpress-amp-theme' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				wp_kses_post( get_the_title() )
-			)
-		);
-
+		wordpress_amp_theme_the_excerpt();
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'wordpress-amp-theme' ),
