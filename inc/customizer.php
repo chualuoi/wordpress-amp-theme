@@ -70,27 +70,6 @@ function wordpress_amp_theme_customize_register( $wp_customize ) {
 		)
 	) );
 
-	/***** Logo Upload *****/
-
-	// section
-	$wp_customize->add_section( 'wp_amp_theme_logo_upload', array(
-		'title'       => __( 'Logo', 'wp_amp_theme' ),
-		'priority'    => 25,
-		'description' => __( 'Use this instead of the avatar if you want a non-rounded logo image.', 'wp_amp_theme' )
-	) );
-	// setting
-	$wp_customize->add_setting( 'logo_upload', array(
-		'sanitize_callback' => 'esc_url_raw'
-	) );
-	// control
-	$wp_customize->add_control( new WP_Customize_Image_Control(
-		$wp_customize, 'logo_image', array(
-			'label'    => __( 'Upload custom logo.', 'wp_amp_theme' ),
-			'section'  => 'wp_amp_theme_logo_upload',
-			'settings' => 'logo_upload'
-		)
-	) );
-
 	/***** Social Media Icons *****/
 
 	// get the social sites array

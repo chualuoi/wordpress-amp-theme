@@ -11,19 +11,19 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'recipe-article' ); ?>>
 	<?php if ( is_singular() ) : ?>
-		<span class="ampstart-subtitle block px3 pt2 mb2 caps"><?php wordpress_amp_theme_entry_footer(); ?></span>
+		<span class="ampstart-subtitle block pt2 mb2 caps"><?php wordpress_amp_theme_entry_footer(); ?></span>
 	<?php endif; ?>
 	<header class="entry-header">
 		<?php
 		if ( is_singular() ) :
-			the_title( '<h1 class="mb1 px3">', '</h1>' );
+			the_title( '<h1 class="mb1">', '</h1>' );
 		else :
-			the_title( '<h2 class="mb2 px3"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+			the_title( '<h2 class="mb2"><a class="text-decoration-none" href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
 		endif;
 
 		if ( 'post' === get_post_type() ) :
 			?>
-			<address class="ampstart-byline clearfix mb4 px3 h5">
+			<address class="ampstart-byline clearfix mb4 h5">
 				<?php
 				wordpress_amp_theme_posted_on();
 				wordpress_amp_theme_posted_by();
@@ -37,7 +37,7 @@
 
 	<?php wordpress_amp_theme_post_thumbnail(); ?>
 
-	<div class="entry-content px3">
+	<div class="entry-content">
 		<?php
 		the_content(
 			sprintf(
