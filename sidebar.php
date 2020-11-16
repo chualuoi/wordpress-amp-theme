@@ -16,7 +16,10 @@
   	<nav class="ampstart-sidebar-nav ampstart-nav">
 		  <?php get_template_part( 'template-parts/categories' ); ?>
 	</nav>
-  	<?php get_template_part( 'template-parts/avatar' ); ?>
+  	<?php get_template_part( 'template-parts/avatar' ) ?>
+	<?php if ( get_bloginfo( 'description' ) ) : ?>
+		<p class="tagline"><?php echo esc_html( get_bloginfo( "description" ) ) ?> </p>
+	<?php endif; ?>
 	<?php get_template_part( 'template-parts/social-media-profiles' ); ?>
     <?php get_template_part( 'template-parts/sidebar-menu' ) ?>
 </amp-sidebar>

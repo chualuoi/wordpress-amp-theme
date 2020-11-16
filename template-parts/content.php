@@ -29,6 +29,9 @@
 				wordpress_amp_theme_posted_by();
 				?>
 			</address>
+			<div class="right">
+				<?php get_template_part( 'template-parts/social-share' ); ?>
+			</div>
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
