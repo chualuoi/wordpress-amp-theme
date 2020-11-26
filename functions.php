@@ -47,6 +47,8 @@ if ( ! function_exists( 'wordpress_amp_theme_setup' ) ) :
 		 */
 		add_theme_support( 'post-thumbnails' );
 
+		add_theme_support( 'align-wide' );
+
 		register_nav_menus(
 			array(
 				'sidebar-menu' => esc_html__( 'Sidebar', 'wordpress-amp-theme' ),

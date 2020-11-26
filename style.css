@@ -2196,3 +2196,15 @@ h1 + .ampstart-byline time {
 .archive article {
 	box-shadow: 0 2px 2px -2px #888;
 }
+
+.alignfull {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+}
+
+.alignwide {
+    width: calc(100% + 20vw);
+    position: relative;
+	margin-left: -10vw;
+	margin-right: -10vw;
+}
